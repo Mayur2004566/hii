@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simple Registration Form</title>
+
+<style>
+/* Background */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3e8ff; /* light purple */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Form Box */
+.container {
+    background: #ffffff;
+    padding: 20px;
+    width: 320px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Heading */
+h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* Inputs */
+.input-group {
+    margin-bottom: 12px;
+}
+
+label {
+    font-size: 14px;
+}
+
+input, select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #a855f7; /* purple */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #9333ea;
+}
+
+/* Error */
+.error {
+    color: red;
+    font-size: 12px;
+}
+
+/* Success */
+.success {
+    color: green;
+    text-align: center;
+    margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Register</h2>
+
+    <form id="form">
+
+        <div class="input-group">
+            <label>Full Name</label>
+            <input type="text" id="name">
+            <div class="error" id="nameError"></div>
+        </div>
+
+        <div class="input-group">
+            <label>College Name</label>
+            <input type="text" id="college">
+            <div class="error" id="collegeError"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="text" id="email">
+            <div class="error" id="emailError"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Phone Number</label>
+            <input type="text" id="phone">
+            <div class="error" id="phoneError"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Course</label>
+            <select id="course">
+                <option value="">Select</option>
+                <option>BCA</option>
+                <option>BBA</option>
+                <option>BSc</option>
+            </select>
+            <div class="error" id="courseError"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" id="password">
+            <div class="error" id="passwordError"></div>
+        </div>
+
+        <div class="input-group">
+            <label>Confirm Password</label>
+            <input type="password" id="confirmPassword">
+            <div class="error" id="confirmPasswordError"></div>
+        </div>
+
+        <button type="submit">Submit</button>
+
+        <div class="success" id="successMsg"></div>
+
+    </form>
+</div>
+
+<script>
+document.getElementById("form").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    let valid = true;
+
+    // Clear errors
+    document.querySelectorAll(".error").forEach(e => e.innerText = "");
+    document.getElementById("successMsg").innerText = "";
+
+    // Values
+    let name = document.getElementById("name").value.trim();
+    let college = document.getElementById("college").value.trim();
+    let email = document.getElementById("email").value.trim();
+    let phone = document.getElementById("phone").value.trim();
+    let course = document.getElementById("course").value;
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+
+    // Validation
+    if (name === "") {
+        document.getElementById("nameError").innerText = "Enter name";
+        valid = false;
+    }
+
+    if (college === "") {
+        document.getElementById("collegeError").innerText = "Enter college";
+        valid = false;
+    }
+
+    if (!email.includes("@")) {
+        document.getElementById("emailError").innerText = "Enter valid email";
+        valid = false;
+    }
+
+    if (!/^[0-9]{10}$/.test(phone)) {
+        document.getElementById("phoneError").innerText = "Enter 10 digit phone";
+        valid = false;
+    }
+
+    if (course === "") {
+        document.getElementById("courseError").innerText = "Select course";
+        valid = false;
+    }
+
+    if (password.length < 6) {
+        document.getElementById("passwordError").innerText = "Min 6 characters";
+        valid = false;
+    }
+
+    if (password !== confirmPassword) {
+        document.getElementById("confirmPasswordError").innerText = "Passwords not match";
+        valid = false;
+    }
+
+    // Success
+    if (valid) {
+        document.getElementById("successMsg").innerText = "Registration Successful!";
+    }
+});
+</script>
+
+</body>
+</html>
